@@ -61,33 +61,58 @@ function checkCashRegister(price, cash, cid) {
    * */
 
   let j = 0;
+  let changeUnits = [];
   for (let i = cid.length - 1; i >= 0; i--) {
+    let add = 0;
+    cumulativeChange += cid[i][1];
     while (!(tempDifference - currency[i] < 0)) {
-      // check cid if it is lower than currency then the while can break
-      // if (cid[i] < changeObj.change[j]) break;
-      console.log(tempDifference + " - " + currency[i]);
-      // console.log("obj change: " + changeObj);
-      // console.log(cid[i][1] + " " + changeObj["change"][j]);
+      // console.log(tempDifference + " - " + currency[i]);
       tempDifference -= currency[i];
       tempDifference = Number(tempDifference).toFixed(2);
-      if (changeObj.change[j] + currency[i] > cid[i][1]) console.log("more");
-      console.log("= " + tempDifference);
-      console.log("j: " + j);
-      console.log("i: " + i);
-      console.log("---");
-      if (typeof changeObj.change[j] === "undefined")
-        changeObj.change.push(currency[i]);
-      else if (tempDifference - currency[i] < 0) {
-        changeObj.change[j] += currency[i];
-        j++;
-      } else changeObj.change[j] += currency[i];
+      add += currency[i];
+      if (add > cid[i][1]) {
+        // console.log(add + " > " + cid[i][1]);
+        // console.log(tempDifference + " + " + currency[i]);
+        tempDifference = Number(tempDifference);
+        tempDifference += currency[i];
+        // console.log(" = " + tempDifference);
+        break;
+      } else changeUnits.push(currency[i]);
+
+      // console.log("= " + tempDifference);
+      j++;
     }
-    cumulativeChange += cid[i][1];
+  }
+  if (tempDifference != 0.0) {
+    // move this up and add return
+    if (cumulativeChange === difference) {
+      changeObj.status = "CLOSED";
+      changeObj.change = cid;
+    } else {
+      changeObj.status = "INSUFFICIENT_FUNDS";
+      changeObj.change = [];
+    }
+    console.log(changeObj);
+    console.log("----------");
+    return changeObj;
   }
 
-  if (cumulativeChange === difference) changeObj.status = "CLOSED";
-  else if (cumulativeChange < difference)
-    changeObj.status = "INSUFFICIENT_FUNDS";
+  // console.log(changeUnits);
+  for (let i = cid.length - 1; i >= 0; i--) {
+    let add = 0;
+    for (let j = 0; j < changeUnits.length; j++) {
+      if (currency[i] === changeUnits[j]) {
+        // console.log(currency[i] + " = " + changeUnits[j]);
+        add += changeUnits[j];
+      }
+    }
+    if (add !== 0) {
+      // console.log(cid[i][0]);
+      changeObj.status = "OPEN";
+      changeObj.change.push([cid[i][0], add]);
+    }
+    // console.log(add);
+  }
 
   console.log("difference: " + difference);
   console.log("cumulative change: " + cumulativeChange);
@@ -121,42 +146,42 @@ checkCashRegister(3.26, 100, [
   ["TWENTY", 60],
   ["ONE HUNDRED", 100],
 ]);
-//
-// // should return {status: "INSUFFICIENT_FUNDS", change: []}.
-// checkCashRegister(19.5, 20, [
-//   ["PENNY", 0.01],
-//   ["NICKEL", 0],
-//   ["DIME", 0],
-//   ["QUARTER", 0],
-//   ["ONE", 0],
-//   ["FIVE", 0],
-//   ["TEN", 0],
-//   ["TWENTY", 0],
-//   ["ONE HUNDRED", 0],
-// ]);
-//
-// // should return {status: "INSUFFICIENT_FUNDS", change: []}.
-// checkCashRegister(19.5, 20, [
-//   ["PENNY", 0.01],
-//   ["NICKEL", 0],
-//   ["DIME", 0],
-//   ["QUARTER", 0],
-//   ["ONE", 1],
-//   ["FIVE", 0],
-//   ["TEN", 0],
-//   ["TWENTY", 0],
-//   ["ONE HUNDRED", 0],
-// ]);
-//
-// //  should return {status: "CLOSED", change: [["PENNY", 0.5], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]}.
-// checkCashRegister(19.5, 20, [
-//   ["PENNY", 0.5],
-//   ["NICKEL", 0],
-//   ["DIME", 0],
-//   ["QUARTER", 0],
-//   ["ONE", 0],
-//   ["FIVE", 0],
-//   ["TEN", 0],
-//   ["TWENTY", 0],
-//   ["ONE HUNDRED", 0],
-// ]);
+
+// should return {status: "INSUFFICIENT_FUNDS", change: []}.
+checkCashRegister(19.5, 20, [
+  ["PENNY", 0.01],
+  ["NICKEL", 0],
+  ["DIME", 0],
+  ["QUARTER", 0],
+  ["ONE", 0],
+  ["FIVE", 0],
+  ["TEN", 0],
+  ["TWENTY", 0],
+  ["ONE HUNDRED", 0],
+]);
+
+// should return {status: "INSUFFICIENT_FUNDS", change: []}.
+checkCashRegister(19.5, 20, [
+  ["PENNY", 0.01],
+  ["NICKEL", 0],
+  ["DIME", 0],
+  ["QUARTER", 0],
+  ["ONE", 1],
+  ["FIVE", 0],
+  ["TEN", 0],
+  ["TWENTY", 0],
+  ["ONE HUNDRED", 0],
+]);
+
+//  should return {status: "CLOSED", change: [["PENNY", 0.5], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]}.
+checkCashRegister(19.5, 20, [
+  ["PENNY", 0.5],
+  ["NICKEL", 0],
+  ["DIME", 0],
+  ["QUARTER", 0],
+  ["ONE", 0],
+  ["FIVE", 0],
+  ["TEN", 0],
+  ["TWENTY", 0],
+  ["ONE HUNDRED", 0],
+]);
