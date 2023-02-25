@@ -1,5 +1,4 @@
 function convertToRoman(num) {
-  let str = "";
   let input = num;
   // splits the digits into its place values
   let splitInput = input.toString().split("");
@@ -16,68 +15,35 @@ function convertToRoman(num) {
     answer += "M";
   }
 
-  // if hundredths is 900
-  if (splitInput[1] == 9) answer += "CM";
-  // if hundredths is between 500 and 900
-  else if (splitInput[1] > 5 && splitInput[1] < 9) {
-    answer += "D";
-    for (let i = 0; i < splitInput[1] - 5; i++) {
-      answer += "C";
+  function romanNumeralDigits(digit, ...romanSymbol) {
+    if (splitInput[digit] == 9) answer += romanSymbol[0];
+    // if place value is between 5 and 9
+    else if (splitInput[digit] > 5 && splitInput[1] < 9) {
+      answer += romanSymbol[1];
+      for (let i = 0; i < splitInput[digit] - 5; i++) {
+        answer += romanSymbol[3];
+      }
+    }
+
+    // if place value is 5
+    else if (splitInput[digit] == 5) answer += romanSymbol[1];
+    // if place value is 4
+    else if (splitInput[digit] == 4) answer += romanSymbol[2];
+    // if place value is between 0.99 and 4
+    else if (splitInput[digit] >= 1 && splitInput[digit] <= 4) {
+      for (let i = 0; i < splitInput[digit]; i++) {
+        answer += romanSymbol[3];
+      }
     }
   }
 
-  // if hundredths is 500
-  else if (splitInput[1] == 5) answer += "D";
-  // if hundredths is 400
-  else if (splitInput[1] == 4) answer += "CD";
-  // if hundredths is between 99 and 400
-  else if (splitInput[1] >= 1 && splitInput[1] <= 4) {
-    for (let i = 0; i < splitInput[1]; i++) {
-      answer += "C";
-    }
-  }
+  // Place value is hundredths
+  romanNumeralDigits(1, "CM", "D", "CD", "C");
+  // Place value is tenths
+  romanNumeralDigits(2, "XC", "L", "XL", "X");
+  // Place value is ones
+  romanNumeralDigits(3, "IX", "V", "IV", "I");
 
-  // if tens is 90
-  if (splitInput[2] == 9) answer += "XC";
-  // if tens is between 50 and 90
-  else if (splitInput[2] > 5 && splitInput[2] < 9) {
-    answer += "L";
-    for (let i = 0; i < splitInput[2] - 5; i++) {
-      answer += "X";
-    }
-  }
-
-  // if tens is 50
-  else if (splitInput[2] == 5) answer += "L";
-  // if tens is 40
-  else if (splitInput[2] == 4) answer += "XL";
-  // if tens is between 9 and 40
-  else if (splitInput[2] >= 1 && splitInput[2] <= 4) {
-    for (let i = 0; i < splitInput[2]; i++) {
-      answer += "X";
-    }
-  }
-
-  // if ones is 9
-  if (splitInput[3] == 9) answer += "IX";
-  // if ones is between 5 and 9
-  else if (splitInput[3] > 5 && splitInput[3] < 9) {
-    answer += "V";
-    for (let i = 0; i < splitInput[3] - 5; i++) {
-      answer += "I";
-    }
-  }
-
-  // if ones is 5
-  else if (splitInput[3] == 5) answer += "V";
-  // if ones is 4
-  else if (splitInput[3] == 4) answer += "IV";
-  // if ones is between 1 and 4
-  else if (splitInput[3] >= 1 && splitInput[3] <= 4) {
-    for (let i = 0; i < splitInput[3]; i++) {
-      answer += "I";
-    }
-  }
   console.log(answer);
   console.log(splitInput);
 
