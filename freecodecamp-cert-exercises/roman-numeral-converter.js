@@ -1,3 +1,5 @@
+// In optimizing the code: I put into practice rest parameters and closure
+
 function convertToRoman(num) {
   let input = num;
   // splits the digits into its place values
