@@ -50,6 +50,7 @@ async function rot13(str) {
   let indexInAlphabet = 0;
   console.clear();
   console.log(str);
+  str = str.toUpperCase();
   await new Promise((resolve) => setTimeout(resolve, 1500));
 
   for (let i = 0; i < str.length; i++) {
@@ -61,7 +62,7 @@ async function rot13(str) {
         // console.log(indexInAlphabet);
         indexInAlphabet++;
         if (indexInAlphabet > 25) indexInAlphabet = 0;
-        await new Promise((resolve) => setTimeout(resolve, 20));
+        await new Promise((resolve) => setTimeout(resolve, 15));
         // Replace the current character with the alphabet counting up
         decipheredAnim =
           decipheredAnim.substring(0, i) +
