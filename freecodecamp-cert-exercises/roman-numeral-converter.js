@@ -53,3 +53,6 @@ function convertToRoman(num) {
 }
 
 convertToRoman(100);
+convertToRoman(1000);
+convertToRoman(4200);
+convertToRoman(6);

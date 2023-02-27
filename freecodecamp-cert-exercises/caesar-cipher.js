@@ -46,8 +46,11 @@ async function rot13(str) {
   // NOTE: This only covers the inputs given by freecodecamp and doesn't cover all edge cases
 
   let deciphered = "";
-  let decipheredAnim = "";
+  let decipheredAnim = str;
   let indexInAlphabet = 0;
+  console.clear();
+  console.log(str);
+  await new Promise((resolve) => setTimeout(resolve, 1500));
 
   for (let i = 0; i < str.length; i++) {
     indexInAlphabet = alphabet.indexOf(str[i]);
@@ -59,12 +62,14 @@ async function rot13(str) {
         indexInAlphabet++;
         if (indexInAlphabet > 25) indexInAlphabet = 0;
         await new Promise((resolve) => setTimeout(resolve, 20));
-        decipheredAnim = alphabet[indexInAlphabet];
+        // Replace the current character with the alphabet counting up
+        decipheredAnim =
+          decipheredAnim.substring(0, i) +
+          alphabet[indexInAlphabet] +
+          decipheredAnim.substring(i + 1);
         console.clear();
-        console.log(deciphered + decipheredAnim);
+        console.log(decipheredAnim);
       }
-      decipheredAnim = "";
-      // console.log(alphabet[indexInAlphabet]);
       deciphered += alphabet[indexInAlphabet];
     }
   }
