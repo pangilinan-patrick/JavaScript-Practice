@@ -1,0 +1,267 @@
+[1mdiff --git a/stackleague/bigger-similar-digits.js b/stackleague/bigger-similar-digits.js[m
+[1mdeleted file mode 100644[m
+[1mindex 63004df..0000000[m
+[1m--- a/stackleague/bigger-similar-digits.js[m
+[1m+++ /dev/null[m
+[36m@@ -1,52 +0,0 @@[m
+[31m-// accepts pos integer[m
+[31m-// returns bigger integer formed using same digits[m
+[31m-//12 > 21[m
+[31m-//513 > 531[m
+[31m-[m
+[31m-// if no bigger number then retun -1[m
+[31m-[m
+[31m-function nextBigger(number) {[m
+[31m-  let splitNum = number.toString().split("");[m
+[31m-  let check = number.toString().split("");[m
+[31m-  if (splitNum.length === 1) return -1;[m
+[31m-[m
+[31m-  check.sort();[m
+[31m-  check.reverse();[m
+[31m-  let checkResult = parseInt(check.join(""));[m
+[31m-  if (checkResult == number) return -1;[m
+[31m-[m
+[31m-  let i = splitNum.length - 1;[m
+[31m-  // console.log("splitNum[i - 1]: ", splitNum[i - 1]);[m
+[31m-  // console.log("splitNum[i]: ", splitNum[i]);[m
+[31m-  while (i > 0 && splitNum[i - 1] >= splitNum[i]) {[m
+[31m-    i--;[m
+[31m-  }[m
+[31m-  // console.log("i: ", i);[m
+[31m-[m
+[31m-  let j = splitNum.length - 1;[m
+[31m-  // console.log("splitNum[j]: ", splitNum[j]);[m
+[31m-  // console.log("splitNum[i - 1]: ", splitNum[i - 1]);[m
+[31m-  while (splitNum[j] <= splitNum[i - 1]) {[m
+[31m-    j--;[m
+[31m-  }[m
+[31m-  // console.log("j: ", j);[m
+[31m-[m
+[31m-  let temp = splitNum[i - 1];[m
+[31m-  splitNum[i - 1] = splitNum[j];[m
+[31m-  splitNum[j] = temp;[m
+[31m-[m
+[31m-  let sorted = splitNum.slice(i).sort();[m
+[31m-  // console.log("sorted: ", sorted);[m
+[31m-  // console.log("splitNum: ", splitNum);[m
+[31m-[m
+[31m-  let result = parseInt(splitNum.slice(0, i).concat(sorted).join(""));[m
+[31m-[m
+[31m-  return result;[m
+[31m-}[m
+[31m-[m
+[31m-console.log(nextBigger(9));[m
+[31m-console.log(nextBigger(11));[m
+[31m-console.log(nextBigger(123));[m
+[31m-console.log(nextBigger(790));[m
+[31m-console.log(nextBigger(513));[m
+[31m-console.log(nextBigger(531));[m
+[1mdiff --git a/stackleague/box.js b/stackleague/box.js[m
+[1mdeleted file mode 100644[m
+[1mindex 79c7eca..0000000[m
+[1m--- a/stackleague/box.js[m
+[1m+++ /dev/null[m
+[36m@@ -1,19 +0,0 @@[m
+[31m-function box(leng, width, heigth, content) {[m
+[31m-  // check if volume will fit the content[m
+[31m-  if (content <= 0 || leng <= 0 || width <= 0 || heigth <= 0) return null;[m
+[31m-  else if (isNaN(content) || isNaN(leng) || isNaN(width) || isNaN(heigth))[m
+[31m-    return null;[m
+[31m-  const INCHES = 0.393701;[m
+[31m-  leng *= INCHES;[m
+[31m-  width *= INCHES;[m
+[31m-  heigth *= INCHES;[m
+[31m-  let volume = leng * width * heigth;[m
+[31m-  console.log(volume);[m
+[31m-  if (content < volume) return true;[m
+[31m-  else if (content > volume) return false;[m
+[31m-}[m
+[31m-[m
+[31m-console.log(box(35, 22, 0, 1221.1));[m
+[31m-console.log(box(35, 22, 26, "not a number"));[m
+[31m-// box(35, 22, 26, 1221.1);[m
+[31m-// box(3, 2, 2.6, 1);[m
+[1mdiff --git a/stackleague/buy-x-get-y.js b/stackleague/buy-x-get-y.js[m
+[1mdeleted file mode 100644[m
+[1mindex 4afaed8..0000000[m
+[1m--- a/stackleague/buy-x-get-y.js[m
+[1m+++ /dev/null[m
+[36m@@ -1,26 +0,0 @@[m
+[31m-function store_promotion([m
+[31m-  Money,[m
+[31m-  buy_chips_promo_with_free,[m
+[31m-  free_chips,[m
+[31m-  chips_price[m
+[31m-) {[m
+[31m-  if ([m
+[31m-    isNaN(Money) ||[m
+[31m-    isNaN(buy_chips_promo_with_free) ||[m
+[31m-    isNaN(free_chips) ||[m
+[31m-    isNaN(chips_price)[m
+[31m-  )[m
+[31m-    return null;[m
+[31m-  const chipsBought = Math.trunc(Money / chips_price);[m
+[31m-  const result =[m
+[31m-    Math.trunc(chipsBought / buy_chips_promo_with_free) * free_chips +[m
+[31m-    chipsBought;[m
+[31m-[m
+[31m-  console.log(result);[m
+[31m-  return result;[m
+[31m-}[m
+[31m-[m
+[31m-store_promotion(45, 21, 67, 2);[m
+[31m-store_promotion(89, 2, 14, 8);[m
+[31m-store_promotion(4, 98, 71, 7);[m
+[31m-store_promotion(1, 25, 27, 1);[m
+[1mdiff --git a/stackleague/christmas-presents.js b/stackleague/christmas-presents.js[m
+[1mdeleted file mode 100644[m
+[1mindex 62d7aec..0000000[m
+[1m--- a/stackleague/christmas-presents.js[m
+[1m+++ /dev/null[m
+[36m@@ -1,37 +0,0 @@[m
+[31m-function ingredients_Needed([m
+[31m-  almonds,[m
+[31m-  hazelnuts,[m
+[31m-  almond_coffee,[m
+[31m-  special_hazel_coffee,[m
+[31m-  mixed_nut_coffee[m
+[31m-) {[m
+[31m-  // almond coffee = 2 almonds[m
+[31m-  // hazelnut coffee = 3 hazelnuts[m
+[31m-  // mixed nut coffee = 1 almond 1 hazel[m
+[31m-  if ([m
+[31m-    isNaN(almonds) ||[m
+[31m-    isNaN(hazelnuts) ||[m
+[31m-    isNaN(almond_coffee) ||[m
+[31m-    isNaN(special_hazel_coffee) ||[m
+[31m-    isNaN(mixed_nut_coffee)[m
+[31m-  )[m
+[31m-    return null;[m
+[31m-[m
+[31m-  let nut = 0;[m
+[31m-[m
+[31m-  almonds -= almond_coffee * 2;[m
+[31m-  hazelnuts -= special_hazel_coffee * 3;[m
+[31m-[m
+[31m-  almonds -= mixed_nut_coffee;[m
+[31m-  hazelnuts -= mixed_nut_coffee;[m
+[31m-  console.log(`almonds = ${almonds}`);[m
+[31m-  console.log(`hazelnuts = ${hazelnuts}`);[m
+[31m-[m
+[31m-  if (almonds > 0) almonds = 0;[m
+[31m-  if (hazelnuts > 0) hazelnuts = 0;[m
+[31m-  nut = Math.abs(almonds) + Math.abs(hazelnuts);[m
+[31m-  console.log(nut);[m
+[31m-  return nut;[m
+[31m-}[m
+[31m-[m
+[31m-ingredients_Needed(4, 1, 3, 4, 9);[m
+[1mdiff --git a/stackleague/cowboy.js b/stackleague/cowboy.js[m
+[1mdeleted file mode 100644[m
+[1mindex 6974f82..0000000[m
+[1m--- a/stackleague/cowboy.js[m
+[1m+++ /dev/null[m
+[36m@@ -1,11 +0,0 @@[m
+[31m-function cowboy(bullets, dragons) {[m
+[31m-  //takes 2 bullets to defeat a dragon[m
+[31m-  if (isNaN(bullets) || isNaN(dragons)) return null;[m
+[31m-  if (dragons === 0) return true;[m
+[31m-  else if (dragons * 2 - bullets === 0) return true;[m
+[31m-  else return false;[m
+[31m-}[m
+[31m-[m
+[31m-console.log(cowboy(3, 2));[m
+[31m-console.log(cowboy(7, 4));[m
+[31m-console.log(cowboy(-1, 3));[m
+[1mdiff --git a/stackleague/event-prizes.js b/stackleague/event-prizes.js[m
+[1mdeleted file mode 100644[m
+[1mindex ce6fd30..0000000[m
+[1m--- a/stackleague/event-prizes.js[m
+[1m+++ /dev/null[m
+[36m@@ -1,30 +0,0 @@[m
+[31m-// num of participants (t-shirts) > than who can win laptop bag[m
+[31m-// num of participants (can win) < half the num of participants[m
+[31m-[m
+[31m-function small_tournament(number_of_participants, N) {[m
+[31m-  // output = [laptop bag, tshirt, losers][m
+[31m-  if (isNaN(number_of_participants) || isNaN(N)) return null;[m
+[31m-  const initialLimit = number_of_participants / 2;[m
+[31m-  let losers = 0;[m
+[31m-  let laptop = 0;[m
+[31m-  let tshirt = 0;[m
+[31m-[m
+[31m-  for (let i = 0; i < initialLimit; i++) {[m
+[31m-    let result = 0;[m
+[31m-    result = i * N;[m
+[31m-[m
+[31m-    if (initialLimit < result + i) {[m
+[31m-      laptop = i - 1;[m
+[31m-      tshirt = (i - 1) * N;[m
+[31m-      break;[m
+[31m-    }[m
+[31m-  }[m
+[31m-  losers = number_of_participants - (laptop + tshirt);[m
+[31m-  console.log(laptop, tshirt, losers);[m
+[31m-  return [laptop, tshirt, losers];[m
+[31m-}[m
+[31m-[m
+[31m-small_tournament(100, 2);[m
+[31m-small_tournament(63, 4);[m
+[31m-small_tournament(10, 6);[m
+[31m-small_tournament(59, 1);[m
+[1mdiff --git a/stackleague/numbers-of-trip.js b/stackleague/numbers-of-trip.js[m
+[1mdeleted file mode 100644[m
+[1mindex 0201d01..0000000[m
+[1m--- a/stackleague/numbers-of-trip.js[m
+[1m+++ /dev/null[m
+[36m@@ -1,18 +0,0 @@[m
+[31m-const Trips = (people, limit) => {[m
+[31m-  let result = 0;[m
+[31m-  let trips = 0;[m
+[31m-  people.forEach((item) => {[m
+[31m-    result += item;[m
+[31m-  });[m
+[31m-[m
+[31m-  while (result > 0) {[m
+[31m-    result -= limit;[m
+[31m-    trips++;[m
+[31m-  }[m
+[31m-[m
+[31m-  return trips;[m
+[31m-  console.log(result);[m
+[31m-  console.log(trips);[m
+[31m-};[m
+[31m-[m
+[31m-Trips([1, 2, 3, 4, 5], 1);[m
+[1mdiff --git a/stackleague/overpopulation.js b/stackleague/overpopulation.js[m
+[1mdeleted file mode 100644[m
+[1mindex eabdaf3..0000000[m
+[1m--- a/stackleague/overpopulation.js[m
+[1m+++ /dev/null[m
+[36m@@ -1,26 +0,0 @@[m
+[31m-// Example:[m
+[31m-// pop 1000 beginning of year[m
+[31m-// increases 2 percent per y[m
+[31m-// 50 new life forms come per y[m
+[31m-[m
+[31m-//how many years til pop > 1200[m
+[31m-[m
+[31m-function nbYear(startingPopulation, percent, additional, targetPopulation) {[m
+[31m-  //code here[m
+[31m-  let years = 0;[m
+[31m-[m
+[31m-  let result =[m
+[31m-    startingPopulation + startingPopulation * (percent / 100) + additional;[m
+[31m-  console.log(result);[m
+[31m-  years++;[m
+[31m-[m
+[31m-  while (result < targetPopulation) {[m
+[31m-    result = result + result * (percent / 100) + additional;[m
+[31m-    years++;[m
+[31m-  }[m
+[31m-  console.log(years);[m
+[31m-  return years;[m
+[31m-}[m
+[31m-[m
+[31m-nbYear(1500, 5, 100, 5000); //15[m
+[31m-nbYear(1500000, 2.5, 10000, 2000000); //10[m
