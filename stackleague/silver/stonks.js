@@ -4,9 +4,12 @@ function trader(stock_prices) {
   let max = 0;
   let invalidPrice = false;
 
+  if (stock_prices.length === 0) return null;
   stock_prices.forEach((item) => {
-    if (isNaN(item) || item < 0) invalidPrice = true;
-    // console.log(isNaN(item) || item < 0);
+    if (isNaN(item) || item < 0) {
+      invalidPrice = true;
+      console.log("Null!");
+    }
   });
   if (invalidPrice) return null;
 
@@ -21,7 +24,7 @@ function trader(stock_prices) {
   return max;
 }
 
-trader([5, 3, 213, 32, "ababsd1", 23, 5, 7]);
+trader([]);
 trader([34, 123654, 675, 34, 65]);
 trader([3, 2, 1, 1]);
 trader([5, 34, 231]);
