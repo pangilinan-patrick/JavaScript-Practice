@@ -12,6 +12,12 @@ function areArraysEqual(arr1, arr2) {
 function shifts(guards) {
   let temp = [...guards];
   let swaps = 0;
+
+  if (guards.length === 0) return null;
+  for (let i = 0; guards.length < i; i++) {
+    if (isNaN(guards[i]) || guards[i] < 0) return null;
+  }
+
   guards.sort((a, b) => {
     return a - b;
   });
