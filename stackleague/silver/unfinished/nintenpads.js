@@ -1,4 +1,4 @@
-// Unfinished
+// Sample cases not met
 class notepad {
   constructor() {
     this.cursor = 0;
@@ -7,33 +7,54 @@ class notepad {
   }
 
   addText(text) {
-    this.str +=
-      this.str.substr(this.cursor, this.cursor + 1) +
-      String.fromCharCode(text) +
-      this.str.substr(this.cursor + 1);
+    if (isNaN(text) || text < 0 || text > 127) return null;
+    if (this.str.length === this.cursor) this.str += String.fromCharCode(text);
+    else if (this.cursor < this.str.length && this.str.length > 0) {
+      this.str =
+        this.str.substring(0, this.cursor) +
+        String.fromCharCode(text) +
+        this.str.substring(this.cursor);
+    }
     this.cursor++;
+    console.log(this.str, "cur:", this.cursor);
   }
 
   delete() {
-    //codehere
+    if (this.cursor > 0) {
+      this.str = this.str.substring(0, this.cursor - 1);
+      this.cursor--;
+      console.log("Deleted");
+      return "Deleted";
+    } else {
+      console.log("Delete error");
+      return "Delete error";
+    }
   }
 
   moveLeft() {
-    if (this.cursor >= 0) this.cursor -= 1;
+    if (this.cursor > 0) this.cursor -= 1;
+    console.log("moved left", "cur:", this.cursor);
   }
+
   moveRight() {
     if (this.cursor <= this.str.length) this.cursor += 1;
+    console.log("moved right", "cur:", this.cursor);
   }
 
   enter() {
     this.result = this.str;
+    console.log(this.result);
+    return this.result;
   }
 }
 
 let notes = new notepad();
+
 notes.addText(72);
-notes.addText(101);
+notes.addText(NaN);
+// notes.moveLeft();
+// notes.moveLeft();
+// notes.delete();
 notes.addText(109);
-notes.moveLeft();
 notes.addText(112);
-console.log(notes.str);
+notes.enter();
